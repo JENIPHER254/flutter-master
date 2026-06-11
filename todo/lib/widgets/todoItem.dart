@@ -1,41 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:todo/const/colors.dart';
+import 'package:todo/model/todo.dart';
 
-Container todoItem(BuildContext context) {
+Container todoItem(
+  BuildContext context,
+  ToDo todo,
+  Function(ToDo) onToggle,
+  Function(String) onDelete,
+) {
   return Container(
     margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
     height: MediaQuery.of(context).size.height * 0.1,
-    decoration: BoxDecoration(
+    child: Material(
       color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.3),
-          blurRadius: 8,
-          offset: Offset(0, 2),
-        ),
-      ],
-      borderRadius: BorderRadius.all(Radius.circular(12)),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ListTile(
-          trailing: Container(
-            child: Icon(Icons.delete, color: secondary),
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(30)),
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ListTile(
+            trailing: IconButton(
+              icon: Icon(Icons.delete, color: secondary),
+              onPressed: () {
+                if (todo.id != null) onDelete(todo.id!);
+              },
             ),
+            title: Text(
+              todo.todoText ?? '',
+              style: TextStyle(
+                decoration: todo.isDone
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
+              ),
+            ),
+            leading: Checkbox(
+              value: todo.isDone,
+              activeColor: primary,
+              onChanged: (_) {
+                onToggle(todo);
+              },
+            ),
+            onTap: () {
+              onToggle(todo);
+            },
           ),
-          title: Text(
-            style: TextStyle(decoration: TextDecoration.lineThrough),
-            'check my mail',
-          ),
-          leading: Icon(Icons.check_box, color: primary),
-          onTap: () {},
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
