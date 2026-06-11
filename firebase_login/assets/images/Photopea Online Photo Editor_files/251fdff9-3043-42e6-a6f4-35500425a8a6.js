@@ -1,1 +1,0 @@
-window.pgPrebid=window.pgPrebid||{},window.pgPrebid.que=window.pgPrebid.que||[],window.pgPrebid.que.push(function(){window.pgPrebid.enableAnalytics({provider:"pubxai",options:{samplingRate:10,pubxId:"251fdff9-3043-42e6-a6f4-35500425a8a6"}})});
