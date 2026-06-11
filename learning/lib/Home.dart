@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning/concepts/Inheritance.dart';
 import 'concepts/Classes.dart';
 
 class Home extends StatelessWidget {
@@ -6,7 +7,11 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Animals animal = Animals('lion', 'wild');
+    Animals animal = Animals('lion', 'wild'); //has no access to super
+    SuperAnimal superanimal = SuperAnimal(
+      'monkey',
+      'mammal',
+    ); //has access to super
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -23,6 +28,12 @@ class Home extends StatelessWidget {
               }).toList(),
             ),
             Text(animal.category),
+            Text(superanimal.category),
+            Text(
+              textAlign: TextAlign.center,
+              style: TextStyle(),
+              '$superanimal.name : $superanimal.publish',
+            ),
           ],
         ),
       ),
